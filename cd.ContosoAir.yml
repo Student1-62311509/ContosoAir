@@ -10,13 +10,13 @@ resources:
  pipelines:
   - pipeline: buildContosoAir # identifier for the resource used in pipeline resource variables
     source: Student1-62311509.ContosoAir # name of the pipeline that produces the artifact
-trigger:
-     branches:
-      include:
-       - master
+    trigger:
+      branches:
+       include:
+         - master
 
 pool:
-    name: default 
+  name: default 
   vmImage: ubuntu-latest
 
 steps:
@@ -29,7 +29,7 @@ steps:
     targetPath: '$(Pipeline.Workspace)'
 
 - task: AzureResourceManagerTemplateDeployment@3
-      inputs:
+  inputs:
         deploymentScope: 'Resource Group'
         azureResourceManagerConnection: 'Azure Connection'
         subscriptionId: 'bf891115-b6c3-4c37-bcca-7f566a4c6853'
@@ -42,8 +42,8 @@ steps:
         overrideParameters: '-p_environment $(web_environment) -p_site_prefix $(web_prefix) -p_site_web_name $(web_site)'
         deploymentMode: 'Incremental'
         
- - task: AzureRmWebAppDeployment@5
-   inputs:
+- task: AzureRmWebAppDeployment@5
+  inputs:
      ConnectionType: 'AzureRM'
      azureSubscription: 'Azure Connection'
      appType: 'webApp'
